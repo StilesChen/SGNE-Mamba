@@ -1,0 +1,31 @@
+{
+  "base_config": "/data/Graph-Mamba-main/configs/Mamba/cifar/parameter_matched/cifar10_full.yaml",
+  "base_sha256": "2ea27a9fc86d73dbeab0b29369ab0dd61201a251eb82cf70b95e781a7f32aac1",
+  "full": {
+    "scan": "both",
+    "width": 64,
+    "parameters": 275269,
+    "relative_difference": 0.0
+  },
+  "selected": {
+    "node": {
+      "scan": "node",
+      "width": 83,
+      "parameters": 278113,
+      "relative_difference": 0.010331711889097539
+    },
+    "edge": {
+      "scan": "edge",
+      "width": 72,
+      "parameters": 275402,
+      "relative_difference": 0.00048316374164913967
+    }
+  },
+  "tolerance": 0.011,
+  "selection": "closest above target within tolerance, otherwise closest below",
+  "dim_in": 5,
+  "dim_out": 10,
+  "torch_version": "2.0.0",
+  "backward_checked_device": "cuda:0",
+  "note": "No accuracy evaluation; optional gradient audit uses one training batch."
+}

@@ -1,0 +1,85 @@
+# CIFAR10 controlled edge-serialization ablation: a3_bfs_fixed.
+out_dir: results/cifar10_edge_serialization
+metric_best: accuracy
+wandb:
+  use: False
+  project: GNN-Benchmark-RandomSeed
+  entity: project
+dataset:
+  format: PyG-GNNBenchmarkDataset
+  name: CIFAR10
+  task: graph
+  task_type: classification
+  transductive: False
+  node_encoder: True
+  node_encoder_name: LapPE
+  node_encoder_bn: False
+  edge_encoder: True
+  edge_encoder_name: LinearEdge
+  edge_encoder_bn: False
+posenc_LapPE:
+  enable: True
+  eigen:
+    laplacian_norm: none
+    eigvec_norm: L2
+    max_freqs: 8
+  model: DeepSet
+  dim_pe: 8
+  layers: 2
+  raw_norm_type: none
+train:
+  mode: custom
+  batch_size: 16
+  eval_period: 1
+  ckpt_period: 100
+  nan_diagnostics: False
+  detect_anomaly: False
+  detect_nonfinite_forward: False
+  numerical_debug: False
+model:
+  type: GPSModel
+  loss_fun: cross_entropy
+  edge_decoding: dot
+  graph_pooling: mean
+gt:
+  layer_type: CustomGatedGCN+Mamba_Edge
+  layers: 3
+  n_heads: 4
+  dim_hidden: 64  # Must match gnn.dim_inner
+  dropout: 0.0
+  attn_dropout: 0.5
+  layer_norm: False
+  batch_norm: True
+  enable_reverse_mamba: False
+  scan_target: both
+  edge_scan_order: node_edge_bfs
+  edge_dfs_signature_rounds: 2
+  edge_scan_segmentation: fixed_chunks
+  edge_scan_within_segment_shuffle: False
+  edge_scan_max_segment_len: 512
+  edge_dfs_use_attributes: True
+  edge_state_transfer: full
+  edge_scan_precompute: False
+  edge_node_fusion_mode: mfsg
+  edge_mamba_residual_scale: 0.1
+  node_edge_scale_mode: fixed
+  node_edge_scale_value: 0.05
+gnn:
+  head: default
+  layers_pre_mp: 0
+  layers_post_mp: 2
+  dim_inner: 64  # Must match gt.dim_hidden
+  batchnorm: False
+  act: relu
+  dropout: 0.0
+  agg: mean
+  normalize_adj: False
+optim:
+  clip_grad_norm: True
+  optimizer: adamW
+  weight_decay: 0.01
+  base_lr: 0.005
+  max_epoch: 100
+  scheduler: cosine_with_warmup
+  num_warmup_epochs: 5
+seed: 0
