@@ -60,7 +60,7 @@ gt:
   edge_node_fusion_mode: mfsg
   edge_mamba_residual_scale: 0.1
   edge_scan_order: 'node_edge_dfs'  # default / dfs / node_edge_dfs
-  node_edge_scale_mode: fixed   # none / dim / fixed / learnable
+  node_edge_scale_mode: none   # none / dim / fixed / learnable
   node_edge_scale_value: 0.05
 gnn:
   head: default
