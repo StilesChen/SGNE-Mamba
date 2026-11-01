@@ -49,12 +49,12 @@ gt:
   attn_dropout: 0.5
   layer_norm: False
   batch_norm: True
-  enable_reverse_mamba: False
+  enable_reverse_mamba: True
   scan_target: both
   edge_scan_order: node_edge_dfs
   edge_node_fusion_mode: mfsg
   edge_mamba_residual_scale: 0.1
-  node_edge_scale_mode: fixed
+  node_edge_scale_mode: none
   node_edge_scale_value: 0.05
 gnn:
   head: default
